@@ -27,5 +27,8 @@ public class FirstTest {
         profileElement.click();
         $x("//div[contains(text(), '2  / 2 equipped')]").should(Condition.visible);
         $x("//button[@data-test='purchase-button']").shouldHave(Condition.disabled);
+
+
+
     }
 }
