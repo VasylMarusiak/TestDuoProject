@@ -46,8 +46,8 @@ public class FirstTest extends SelenoidRunner {
         } else {
             lingotMenu.click();
         }
-
-        $x("//div[contains(text(), '2  / 2 equipped')]").should(visible);
+        $x("//button[@data-test='purchase-button']/span[contains(text(), 'Equipped')]").should(visible);
+        $x("//div[contains(text(), '2  / 2 equipped') or contains(text(), '3/3 equipped')]").should(visible);
         $x("//button[@data-test='purchase-button']").shouldHave(Condition.disabled);
     }
 }
