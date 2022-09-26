@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="none" verbose="1">
+    <!--    <listeners>-->
+    <!--        <listener class-name="listeners.CustomListener"/>-->
+    <!--        <listener class-name="listeners.RetryListener"/>-->
+    <!--    </listeners>-->
+
+    <test name="DuolingoTestName" parallel="false" preserve-order="true" thread-count="1">
+        <classes>
+            <class name="Tests.FirstTest">
+                <methods>
+                    <include name="verifyVasylMarusyakUsedFreezing"/>
+                    <include name="verifyIrunaShemraiUsedFreezing"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
