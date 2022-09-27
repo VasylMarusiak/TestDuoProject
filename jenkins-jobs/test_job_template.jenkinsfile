@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+    tools {maven 'Maven'}
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                 git credentialsId: '',
+                    branch: 'master',
+                    url: 'https://github.com/VasylMarusiak/TestDuoProject.git'
+            }
+        }
+
+	stage('Prepare Selenoid') {
+            steps {
+                sh 'docker pull selenoid/chrome'
+                sh 'chmod +x src/test/resources/selenoid_manager/cm'
+		sh 'src/test/resources/selenoid_manager/cm selenoid start'
+		sh 'src/test/resources/selenoid_manager/cm selenoid status'
+		sh 'curl http://localhost:4444/status'
+            }
+        }
+
+	stage('Run tests') {
+            steps {
+                 withCredentials([
+                    [$class          : 'UsernamePasswordMultiBinding',
+                    credentialsId   : 'VASYL_MARUSIAK_DUOLINGO',
+                    usernameVariable: 'VASYL_MARUSIAK_EMAIL',
+                    passwordVariable: 'VASYL_MARUSIAK_PASSWORD',],
+
+                    [$class          : 'UsernamePasswordMultiBinding',
+                    credentialsId   : 'IRUNA_SHEMRAI_DUOLINGO',
+                    usernameVariable: 'IRUNA_SHEMRAI_EMAIL',
+                    passwordVariable: 'IRUNA_SHEMRAI_PASSWORD']
+                ])
+                {
+
+                sh 'mvn clean test \
+                "-Dvasyl.marusyak.email=${VASYL_MARUSIAK_EMAIL}" "-Dvasyl.marusyak.pass=${VASYL_MARUSIAK_PASSWORD}" \
+                "-Diruna.shemrai.email=${VASYL_MARUSIAK_EMAIL}" "-Diruna.shemrai.pass=${VASYL_MARUSIAK_PASSWORD}" \
+                "-Dsurefire.suiteXmlFiles=src/test/resources/TestNG.xml" "-Dtestng.dtd.http=true" "-Dselenide.headless=true" \
+                '
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                sh 'docker stop selenoid'
+                sh 'docker rm selenoid'
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+                    ])
+            }
+            mail to: "vasyamarusyak03@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+        }
+    }
+}
