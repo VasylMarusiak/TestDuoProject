@@ -2,8 +2,12 @@ package Tests;
 
 import Utils.User;
 import com.codeborne.selenide.Condition;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import runners.SelenoidRunner;
+import utils.listeners.InvocationListener;
+import utils.listeners.TestResultsListener;
+import utils.testrail.TestRailCase;
 
 import static Utils.UserRepo.getIrunaShemraiUser;
 import static Utils.UserRepo.getVasylMarusyakUser;
@@ -12,13 +16,17 @@ import static com.codeborne.selenide.Selenide.*;
 import static java.lang.Integer.parseInt;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Listeners(TestResultsListener.class) //works only for separate tests
+//@Listeners(InvocationListener.class)
 public class FirstTest extends SelenoidRunner {
-    @Test(priority = -19)
+    @Test
+    @TestRailCase(id = 2306)
     public void verifyVasylMarusyakUsedFreezing() {
         verifyUserUsedFreezingBaseTest(getVasylMarusyakUser());
     }
 
-    @Test(priority = -100)
+    @Test
+    @TestRailCase(id = 2307)
     public void verifyIrunaShemraiUsedFreezing() {
         verifyUserUsedFreezingBaseTest(getIrunaShemraiUser());
     }
