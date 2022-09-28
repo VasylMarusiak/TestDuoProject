@@ -1,24 +1,22 @@
 package utils.listeners;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-import utils.testrail.TestRailManager;
+import utils.testrail.TestRailUtil;
 
 import java.io.ByteArrayInputStream;
 
 import static com.codeborne.selenide.Selenide.screenshot;
 import static io.qameta.allure.Allure.addAttachment;
 import static org.openqa.selenium.OutputType.BYTES;
+import static utils.testrail.TestRailUtil.*;
 //import static utils.listeners.AllureListener.attachScreenshot1;
 
 public class TestResultsListener extends TestListenerAdapter {
 
-    private final TestRailManager testRailManager = new TestRailManager();
+   // private final TestRailUtil testRailManager = new TestRailUtil();
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -27,17 +25,23 @@ public class TestResultsListener extends TestListenerAdapter {
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        attachScreenshot();
         addAttachment("nameTest", new ByteArrayInputStream(screenshot(BYTES)));
-        testRailManager.setTestResult(result);
+        if (milestoneId == 0) {
+            milestoneId = addMilestone(PROJECT_ID, milestoneName).getId();
+        }
+        var id = getOrAddTestRun(runName);
+        TestRailUtil.setTestResult(result, id, milestoneId);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
         System.out.println("Failured of test cases and its details are : " + result.getName());
 
-       // addAttachment("nameTest", new ByteArrayInputStream(screenshot(BYTES)));
-        testRailManager.setTestResult(result);
+        if (milestoneId == 0) {
+            milestoneId = addMilestone(PROJECT_ID, milestoneName).getId();
+        }
+        var id = getOrAddTestRun(milestoneName);
+        setTestResult(result, id, milestoneId);
     }
 
     @Override

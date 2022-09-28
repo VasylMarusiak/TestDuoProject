@@ -5,8 +5,6 @@ import com.codeborne.selenide.Condition;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import runners.SelenoidRunner;
-import utils.listeners.InvocationListener;
-import utils.listeners.TestResultsListener;
 import utils.testrail.TestRailCase;
 
 import static Utils.UserRepo.getIrunaShemraiUser;
@@ -16,8 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static java.lang.Integer.parseInt;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@Listeners(TestResultsListener.class) //works only for separate tests
-//@Listeners(InvocationListener.class)
+//@Listeners(TestResultsListener.class) //works only for separate tests
 public class FirstTest extends SelenoidRunner {
     @Test
     @TestRailCase(id = 2306)
