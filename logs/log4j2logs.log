@@ -1,0 +1,6 @@
+[TRACE] 2022-10-11 02:53:44.647 [main] FirstTest - This is a trace message
+[DEBUG] 2022-10-11 02:53:44.655 [main] FirstTest - This is a debug message
+[INFO ] 2022-10-11 02:53:44.655 [main] FirstTest - This is an info message
+[WARN ] 2022-10-11 02:53:44.656 [main] FirstTest - This is a warn message
+[ERROR] 2022-10-11 02:53:44.656 [main] FirstTest - This is an error message
+[FATAL] 2022-10-11 02:53:44.657 [main] FirstTest - This is a fatal message

@@ -8,7 +8,7 @@
 
     <test name="DuolingoTestName" parallel="false" preserve-order="true" thread-count="1">
         <classes>
-            <class name="Tests.FirstTest">
+            <class name="tests.FirstTest">
 <!--                <methods>-->
 <!--                    <include name="verifyVasylMarusyakUsedFreezing"/>-->
 <!--                    <include name="verifyIrunaShemraiUsedFreezing"/>-->

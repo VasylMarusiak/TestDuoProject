@@ -1,14 +1,15 @@
-package Tests;
+package tests;
 
-import Utils.User;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import utils.User;
 import com.codeborne.selenide.Condition;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import runners.SelenoidRunner;
 import utils.testrail.TestRailCase;
 
-import static Utils.UserRepo.getIrunaShemraiUser;
-import static Utils.UserRepo.getVasylMarusyakUser;
+import static utils.UserRepo.getIrunaShemraiUser;
+import static utils.UserRepo.getVasylMarusyakUser;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static java.lang.Integer.parseInt;
@@ -45,7 +46,7 @@ public class FirstTest extends SelenoidRunner {
         actions().moveToElement(lingotMenu).build().perform();
         var profileElement = $x("//*[contains(text(), 'Go to shop')]");
 
-        if(profileElement.isDisplayed()){
+        if (profileElement.isDisplayed()) {
             actions().moveToElement(profileElement).build().perform();
             profileElement.click();
         } else {
@@ -54,5 +55,16 @@ public class FirstTest extends SelenoidRunner {
         $x("//button[@data-test='purchase-button']/span[contains(text(), 'Equipped')]").should(visible);
         $x("//div[contains(text(), '2  / 2 equipped') or contains(text(), '3/3 equipped')]").should(visible);
         $x("//button[@data-test='purchase-button']").shouldHave(Condition.disabled);
+    }
+
+    @Test
+    private void verifyTestLoggerMessages() {
+        Logger logger = LogManager.getLogger();
+        logger.trace("This is a trace message");
+        logger.debug("This is a debug message");
+        logger.info("This is an info message");
+        logger.warn("This is a warn message");
+        logger.error("This is an error message");
+        logger.fatal("This is a fatal message");
     }
 }
