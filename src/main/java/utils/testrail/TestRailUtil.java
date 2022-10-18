@@ -15,9 +15,9 @@ import static java.lang.System.out;
 public class TestRailUtil {
 
     public static int PROJECT_ID = 1;
-    public static String TESTRAIL_USERNAME = "vasyamarusyak22@gmail.com";
-    public static String TESTRAIL_PASSWORD = "wLI1NmHgz4s09Ud86NmA";
-    public static String RAILS_ENGINE_URL = "https://testduoproject1.testrail.io/";
+    public static String TESTRAIL_USERNAME = "vasyamarusyak03@gmail.com";
+    public static String TESTRAIL_PASSWORD = "Qwerty1!";
+    public static String RAILS_ENGINE_URL = "https://testduoproject2.testrail.io/";
 
     public static String milestoneName = "Test_Milestone_Release_1.0";
     public static String runName = "AutomationRun_for_Milesone_1.0";

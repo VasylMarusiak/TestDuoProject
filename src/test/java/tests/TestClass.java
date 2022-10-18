@@ -16,15 +16,15 @@ import static java.lang.Integer.parseInt;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 //@Listeners(TestResultsListener.class) //works only for separate tests
-public class FirstTest extends SelenoidRunner {
+public class TestClass extends SelenoidRunner {
     @Test
-    @TestRailCase(id = 2306)
+    @TestRailCase(id = 2298)
     public void verifyVasylMarusyakUsedFreezing() {
         verifyUserUsedFreezingBaseTest(getVasylMarusyakUser());
     }
 
     @Test
-    @TestRailCase(id = 2307)
+    @TestRailCase(id = 2299)
     public void verifyIrunaShemraiUsedFreezing() {
         verifyUserUsedFreezingBaseTest(getIrunaShemraiUser());
     }
@@ -57,7 +57,7 @@ public class FirstTest extends SelenoidRunner {
         $x("//button[@data-test='purchase-button']").shouldHave(Condition.disabled);
     }
 
-    @Test
+   // @Test
     private void verifyTestLoggerMessages() {
         Logger logger = LogManager.getLogger();
         logger.trace("This is a trace message");

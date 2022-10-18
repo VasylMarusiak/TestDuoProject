@@ -12,7 +12,6 @@ import static com.codeborne.selenide.Selenide.screenshot;
 import static io.qameta.allure.Allure.addAttachment;
 import static org.openqa.selenium.OutputType.BYTES;
 import static utils.testrail.TestRailUtil.*;
-//import static utils.listeners.AllureListener.attachScreenshot1;
 
 public class TestResultsListener extends TestListenerAdapter {
 
